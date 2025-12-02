@@ -1,0 +1,151 @@
+from urllib.parse import urlparse, urlunparse, urljoin, parse_qs, urlencode
+URL="http://example.com/search-results.html?query=laptops&category=electronics&sort=price_desc"
+
+
+Programme 1
+parsed_url= urlparse(URL)
+
+print(f"Scheme: {parsed_url.scheme}")
+print(f"Netloc: {parsed_url.netloc}")
+print(f"Path: {parsed_url.path}")
+print(f"Params: {parsed_url.params}")
+print(f"Query: {parsed_url.query}")
+print(f"Fragment: {parsed_url.fragment}")
+
+
+Output
+Scheme: http
+Netloc: example.com
+Path: /search-results.html
+Params:
+Query: query=laptops&category=electronics&sort=price_desc
+Fragment:
+
+
+
+
+Programme 2
+query_params= parse_qs(parsed_url.query)
+print(f"Query parameters: {query_params}")
+
+
+Output
+Query parameters: {'query': ['laptops'], 'category': ['electronics'], 'sort': ['price_desc']}
+
+
+Programme 3
+new_url_components= parsed_url._replace(scheme="https",netloc="api.demo.com")
+new_url=urlunparse(new_url_components)
+print(f"New URL: {new_url}")
+
+
+Output
+New URL: https://api.demo.com/search-results.html?query=laptops&category=electronics&sort=price_desc
+
+
+Programme 4
+base_url="http://example.com/carts"
+relative_path= "mobiles/samsung/galaxy_s23"
+joined_url= urljoin(base_url,relative_path)
+print(f"Joined URL: {joined_url}")
+
+
+Output
+Joined URL: http://example.com/mobiles/samsung/galaxy_s23
+
+
+Programme 5
+params= {'name':'Amit kumar','age':21}
+encoded_params = urlencode(params)
+print(f"Encoded Parameters: {encoded_params}")
+
+
+Output
+Encoded Parameters: name=Amit+kumar&age=21
+
+
+Programme 6
+# Demo URI
+URI="http://example.com:8081/search-results.html?query=laptop+mobiles&category=electronics&sort=price_desc#fragment_01"
+
+
+parsed_uri= urlparse(URI)
+query_params= parse_qs(parsed_uri.query)
+print(f"Query parameters: {query_params}")
+print(f"Search term: {query_params['query'][0]}")
+
+
+Output
+Query parameters: {'query': ['laptop mobiles'], 'category': ['electronics'], 'sort': ['price_desc']}
+Search term: laptop mobiles
+
+
+Programme 7
+from urllib.parse import urlencode, quote, unquote
+
+text_to_encode= "This is a mango!"
+encoded_path= quote(text_to_encode)
+print(f"Encoded Path: {encoded_path}")
+
+params= {'name':'Amit kumar','age':21}
+encoded_query= urlencode(params)
+print(f"Encoded query: {encoded_query}")
+
+
+output
+Encoded Path: This%20is%20a%20mango%21
+Encoded query: name=Amit+kumar&age=21
+
+
+Programme 8
+parsed_uri= urlparse(URI)
+
+print(f"Scheme: {parsed_uri.scheme}")
+print(f"Netloc: {parsed_uri.netloc}")
+print(f"Hostname: {parsed_uri.hostname}")
+print(f"Port: {parsed_uri.port}")
+print(f"Path: {parsed_uri.path}")
+print(f"Params: {parsed_uri.params}")
+print(f"Query: {parsed_uri.query}")
+print(f"Fragment: {parsed_uri.fragment}")
+
+
+output
+Scheme: http
+Netloc: example.com:8081
+Hostname: example.com
+Port: 8081
+Path: /search-results.html
+Params:
+Query: query=laptop+mobiles&category=electronics&sort=price_desc
+Fragment: fragment_01
+
+
+Programme 9
+base_uri="http://example.com/carts"
+relative_path= "mobiles/samsung/galaxy_s23"
+joined_uri= urljoin(base_uri,relative_path)
+print(f"Absolute URI: {joined_uri}")
+
+relative_uri_parent="../mens/watches/casio.png"
+absolute_uri_parent= urljoin(base_uri,relative_uri_parent)
+print(f"Absolute URI(parent): {absolute_uri_parent}")
+
+
+output
+Absolute URI: http://example.com/mobiles/samsung/galaxy_s23
+Absolute URI(parent): http://example.com/mens/watches/casio.png
+
+
+Programme 10
+text_to_encode= "This is a mango!"
+encoded_string= quote(text_to_encode)
+print(f"Encoded: {encoded_string}")
+
+decoded_string = unquote(encoded_string)
+print(f"Decoded: {decoded_string}")
+
+
+output
+Encoded: This%20is%20a%20mango%21
+Decoded: This is a mango!
